@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Registration | FarmConnect</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<main class="auth-card">
+    <a class="brand" th:href="@{/}">🌱 FarmConnect</a>
+
+    <h1>Create farmer account</h1>
+    <p class="muted">Connect directly with customers.</p>
+
+    <div class="message error"
+         th:if="${errorMessage}"
+         th:text="${errorMessage}"></div>
+
+    <form th:action="@{/register}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text"
+               autocomplete="name" maxlength="100" required>
+
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email"
+               autocomplete="email" maxlength="254" required>
+
+        <label for="phone">Phone number</label>
+        <input id="phone" name="phone" type="tel"
+               autocomplete="tel" maxlength="20" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password"
+               autocomplete="new-password" minlength="8"
+               maxlength="72" required>
+
+        <p class="hint">Use at least 8 characters.</p>
+
+        <button class="primary-button" type="submit">
+            Create account
+        </button>
+    </form>
+
+    <p class="switch-link">
+        Already registered?
+        <a th:href="@{/login}">Log in</a>
+    </p>
+
+    <a class="back-link" th:href="@{/}">← Back to homepage</a>
+</main>
+</body>
+</html>

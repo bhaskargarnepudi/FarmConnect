@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Login | FarmConnect</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<main class="auth-card">
+    <a class="brand" th:href="@{/}">🌱 FarmConnect</a>
+
+    <h1>Welcome back</h1>
+    <p class="muted">Log in to your FarmConnect account (farmer or buyer).</p>
+
+    <div class="message success"
+         th:if="${successMessage}"
+         th:text="${successMessage}"></div>
+
+    <div class="message success"
+         th:if="${param.registered != null and successMessage == null}">
+        Registration successful. Please log in.
+    </div>
+
+    <div class="message error" th:if="${param.error}">
+        Email or password is incorrect.
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email"
+               autocomplete="username" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password"
+               autocomplete="current-password" required>
+
+        <button class="primary-button" type="submit">
+            Log in
+        </button>
+    </form>
+
+    <p class="switch-link">
+        New farmer? <a th:href="@{/register}">Create farmer account</a><br>
+        New buyer? <a th:href="@{/buyer/register}">Create buyer account</a>
+    </p>
+
+    <a class="back-link" th:href="@{/}">&larr; Back to homepage</a>
+</main>
+</body>
+</html>

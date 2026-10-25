@@ -1,0 +1,165 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 24px;
+    display: grid;
+    place-items: center;
+    background: #f1f7ef;
+    color: #243329;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 32px;
+    background: #ffffff;
+    border: 1px solid #e1e9df;
+    border-radius: 18px;
+    box-shadow: 0 12px 36px rgba(30, 65, 38, 0.08);
+}
+
+.brand {
+    color: #24713c;
+    font-size: 21px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+h1 {
+    margin: 26px 0 8px;
+    font-size: 27px;
+}
+
+.muted,
+.hint {
+    color: #6c786e;
+    line-height: 1.5;
+}
+
+form {
+    margin-top: 24px;
+}
+
+label {
+    display: block;
+    margin: 17px 0 7px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    min-height: 45px;
+    padding: 11px 12px;
+    border: 1px solid #ced9ce;
+    border-radius: 8px;
+    font: inherit;
+}
+
+input:focus {
+    outline: 2px solid #81bd8b;
+    outline-offset: 1px;
+}
+
+.hint {
+    margin-top: 7px;
+    font-size: 12px;
+}
+
+.primary-button,
+.secondary-button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 13px 16px;
+    border: 0;
+    border-radius: 9px;
+    font: inherit;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.primary-button {
+    background: #267640;
+    color: white;
+}
+
+.primary-button:hover {
+    background: #1d5e32;
+}
+
+.secondary-button {
+    background: #edf2ed;
+    color: #243329;
+}
+
+.button-link {
+    margin-bottom: 12px;
+}
+
+.switch-link {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.switch-link a,
+.back-link {
+    color: #267640;
+    font-weight: 600;
+}
+
+.back-link {
+    display: block;
+    margin-top: 22px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.message {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.success {
+    background: #eaf7ed;
+    color: #216535;
+}
+
+.error {
+    background: #fff0ef;
+    color: #a72d28;
+}
+
+.profile-detail {
+    margin: 24px 0;
+    padding: 16px;
+    background: #f4f8f3;
+    border-radius: 10px;
+    overflow-wrap: anywhere;
+}
+
+.profile-detail p {
+    margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 14px;
+    }
+
+    .auth-card {
+        padding: 23px;
+    }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Crop | FarmConnect</title>
+    <style>
+        *{box-sizing:border-box} body{margin:0;padding:28px 14px;font-family:Arial,sans-serif;background:#f2f7f1;color:#24352a}
+        .container{max-width:650px;margin:auto;background:white;padding:26px;border-radius:14px;box-shadow:0 5px 20px #00000012}
+        h1{color:#237a3b;margin-top:0}.back{display:inline-block;margin-bottom:20px;color:#237a3b;text-decoration:none}
+        .group{margin-bottom:16px}label{display:block;margin-bottom:7px;font-weight:bold}
+        input,select,textarea{width:100%;padding:11px;border:1px solid #ccd7ce;border-radius:7px;font-size:15px}
+        textarea{min-height:90px;resize:vertical}button{width:100%;padding:13px;border:0;border-radius:8px;background:#237a3b;color:white;font-weight:bold;font-size:16px;cursor:pointer}
+        .message{padding:10px;background:#ffe8e8;color:#a40000;border-radius:6px;margin-bottom:15px}.current{max-width:180px;max-height:140px;display:block;margin:8px 0;border-radius:8px;object-fit:cover}
+        .hint{font-size:13px;color:#68776c}
+    </style>
+</head>
+<body>
+<div class="container">
+    <a class="back" th:href="@{/farmer/crops}">← Back to My Crops</a>
+    <h1>Edit Crop ✏️</h1>
+    <p>Update the listing details. Photo is optional; leave it empty to keep the current photo.</p>
+    <div class="message" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+    <form th:action="@{/farmer/crops/{id}/edit(id=${crop.id})}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <div class="group"><label for="name">Crop name</label><input id="name" name="name" required maxlength="255" th:value="${crop.name}"></div>
+        <div class="group"><label for="category">Category</label><select id="category" name="category" required>
+            <option value="Vegetables" th:selected="${crop.category == 'Vegetables'}">Vegetables</option>
+            <option value="Fruits" th:selected="${crop.category == 'Fruits'}">Fruits</option>
+            <option value="Rice" th:selected="${crop.category == 'Rice'}">Rice &amp; Grains</option>
+            <option value="Pulses" th:selected="${crop.category == 'Pulses'}">Pulses</option>
+            <option value="Other" th:selected="${crop.category == 'Other'}">Other</option>
+        </select></div>
+        <div class="group"><label for="description">Description</label><textarea id="description" name="description" required maxlength="1200" th:text="${crop.description}"></textarea></div>
+        <div class="group"><label for="price">Price (₹)</label><input id="price" name="price" type="number" min="0.01" step="0.01" required th:value="${crop.price}"></div>
+        <div class="group"><label for="unit">Selling unit</label><select id="unit" name="unit" required>
+            <option value="1 kg" th:selected="${crop.unit == '1 kg'}">1 kg</option><option value="1 quintal" th:selected="${crop.unit == '1 quintal'}">1 quintal</option><option value="1 dozen" th:selected="${crop.unit == '1 dozen'}">1 dozen</option><option value="25 kg bag" th:selected="${crop.unit == '25 kg bag'}">25 kg bag</option>
+        </select></div>
+        <div class="group"><label for="quantity">Available quantity</label><input id="quantity" name="quantity" type="number" min="0" required th:value="${crop.quantityAvailable}"></div>
+        <div class="group"><label for="quality">Quality</label><input id="quality" name="quality" required th:value="${crop.quality}"></div>
+        <div class="group"><label for="location">Location</label><input id="location" name="location" required th:value="${crop.location}"></div>
+        <div class="group"><label>Current photo</label><img class="current" th:src="${crop.imageUrl}" th:alt="${crop.name}" onerror="this.style.display='none'"><label for="image">Choose replacement photo (optional)</label><input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"><p class="hint">JPG, PNG or WEBP; maximum 5 MB.</p></div>
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+</body>
+</html>

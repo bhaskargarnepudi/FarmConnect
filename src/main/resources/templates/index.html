@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FarmConnect connects farmers directly with customers for transparent agricultural product prices.">
+    <title>FarmConnect | From Farm to Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="site-header">
+    <div class="container nav-wrap">
+        <a class="brand" th:href="@{/}" aria-label="FarmConnect home">
+            <span class="brand-mark">🌱</span><span>Farm<span class="brand-green">Connect</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+            <a class="nav-active" href="#marketplace">Marketplace</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#farmers">For farmers</a>
+        </nav>
+        <div class="nav-actions">
+            <a class="text-link" th:href="@{/buyer/register}">Join as buyer</a>
+            <a class="btn btn-dark btn-small" th:href="@{/login}">
+    I'm a farmer <span aria-hidden="true">↗</span>
+</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <div class="eyebrow"><span class="eyebrow-dot"></span> A fairer way to buy fresh</div>
+                <h1>Good food.<br><span>Fair prices.</span><br>Direct from farms.</h1>
+                <p class="hero-lede">Buy rice, vegetables and fresh produce straight from farmers. Discover transparent prices and choose how you want to purchase.</p>
+                <div class="hero-actions">
+                    <a href="#marketplace" class="btn btn-green">Explore marketplace <span aria-hidden="true">→</span></a>
+                    <a href="#how-it-works" class="btn btn-outline">How it works <span aria-hidden="true">↗</span></a>
+                </div>
+                <div class="hero-proof">
+                    <div class="proof-icon">✓</div>
+                    <p><strong>More transparency.</strong> <span>Fewer unnecessary middlemen.</span></p>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-wrap">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=85" alt="Green agricultural fields at sunrise">
+                    <div class="image-caption"><span class="caption-icon">🌾</span><div><strong>Grown with care</strong><small>From local farms to your table</small></div></div>
+                </div>
+                <div class="floating-card price-float">
+                    <span class="float-icon">₹</span><div><small>Price clarity</small><strong>Know what you pay</strong></div>
+                </div>
+                <div class="floating-card farmer-float">
+                    <div class="mini-avatar">👨🏽‍🌾</div><div><small>Built around farmers</small><strong>Real people. Real produce.</strong></div>
+                </div>
+                <div class="hero-decoration">✳</div>
+            </div>
+        </div>
+        <div class="container trust-strip">
+            <div><strong th:text="${productCount}">6</strong><span>demo listings</span></div>
+            <div><strong>Direct</strong><span>farmer connection</span></div>
+            <div><strong>Flexible</strong><span>buying options</span></div>
+            <div><strong>Local</strong><span>farm-first approach</span></div>
+        </div>
+    </section>
+
+    <section class="market-section section-pad" id="marketplace">
+        <div class="container">
+            <div class="section-heading">
+                <div><div class="eyebrow"><span class="eyebrow-dot"></span> The marketplace</div>
+                    <h2>Fresh from the farm<span class="heading-period">.</span></h2>
+                    <p>Browse products and compare listed prices before you buy.</p>
+                </div>
+                <div class="market-note"><span>✦</span> Listed by farmers</div>
+            </div>
+
+            <div class="market-controls">
+                <div class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search rice, vegetables, fruits..." aria-label="Search products"></div>
+                <div class="category-tabs" role="group" aria-label="Filter by category">
+                    <button class="category-tab active" data-category="All">All products</button>
+                    <button class="category-tab" data-category="Rice">Rice</button>
+                    <button class="category-tab" data-category="Vegetables">Vegetables</button>
+                    <button class="category-tab" data-category="Fruits">Fruits</button>
+                </div>
+                <label class="sort-wrap">Sort by
+                    <select id="sortSelect" aria-label="Sort products">
+                        <option value="featured">Featured</option>
+                        <option value="low">Price: low to high</option>
+                        <option value="high">Price: high to low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="result-line"><span id="resultCount" th:text="${productCount} + ' products found'">6 products found</span><span>Prices shown as listed by the seller</span></div>
+
+            <div class="product-grid" id="productGrid">
+                <article class="product-card" th:each="product : ${products}"
+                         th:attr="data-name=${product.name},data-category=${product.category},data-price=${product.price},data-description=${product.description},data-farmer=${product.farmerName},data-farmer-email=${product.farmerEmail},data-location=${product.location},data-quality=${product.quality},data-unit=${product.unit},data-quantity=${product.quantityAvailable},data-image=${product.imageUrl},data-id=${product.id}">
+                    <div class="product-image">
+                        <img th:src="${product.imageUrl}" th:alt="${product.name}" loading="lazy"
+                             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=80'">
+                        <span class="product-category" th:text="${product.category}">Rice</span>
+                        <button class="save-button" type="button" aria-label="Save product" title="Save product">♡</button>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-title-row"><h3 th:text="${product.name}">Sona Masoori Rice</h3><span class="quality-dot" title="Quality details provided by seller">✦</span></div>
+                        <p class="quality-label" th:text="${product.quality}">Premium grade</p>
+                        <div class="price-row"><strong>₹<span th:text="${#numbers.formatDecimal(product.price, 1, 2)}">1250.00</span></strong><span class="unit" th:text="'/ ' + ${product.unit}">/ 25 kg bag</span></div>
+                        <div class="farmer-row"><span class="farmer-avatar">♧</span><div><strong th:text="${product.farmerName}">Farmer name</strong><small><span aria-hidden="true">⌖</span> <span th:text="${product.location}">Location</span></small></div></div>
+                        <button class="btn btn-card" type="button" th:attr="data-product-id=${product.id}">View product <span aria-hidden="true">→</span></button>
+                    </div>
+                </article>
+            </div>
+            <div class="empty-state" id="emptyState" hidden><span>🌱</span><h3>No products found</h3><p>Try another search or category.</p><button class="btn btn-outline" id="clearFilters">Clear filters</button></div>
+            <p class="demo-disclaimer">Demo marketplace: sample listings and prices are for demonstration only. Confirm product details, final prices and availability with the farmer.</p>
+        </div>
+    </section>
+
+    <section class="how-section section-pad" id="how-it-works">
+        <div class="container">
+            <div class="section-heading centered"><div class="eyebrow"><span class="eyebrow-dot"></span> Simple by design</div><h2>Your choice. Your way<span class="heading-period">.</span></h2><p>Choose how you want to connect and buy.</p></div>
+            <div class="steps-grid">
+                <article class="step-card"><div class="step-number">01</div><div class="step-illustration green-illustration">⌕</div><h3>Discover products</h3><p>Compare product types, listed prices, quality notes, quantity and farmer locations.</p></article>
+                <article class="step-card"><div class="step-number">02</div><div class="step-illustration yellow-illustration">↗</div><h3>Choose how to buy</h3><p>Contact the farmer directly, or choose the platform-assisted purchase option.</p></article>
+                <article class="step-card"><div class="step-number">03</div><div class="step-illustration blue-illustration">♡</div><h3>Make a fair connection</h3><p>Discuss availability, delivery, quantity and final price before confirming a purchase.</p></article>
+            </div>
+        </div>
+    </section>
+
+    <section class="farmer-cta" id="farmers">
+        <div class="container farmer-cta-inner">
+            <div class="cta-icon">🌾</div><div class="cta-copy"><span class="eyebrow light-eyebrow">For the people who grow our food</span><h2>You're the grower.<br>Put your produce out there.</h2><p>FarmConnect is being built to help farmers showcase produce and reach more customers.</p></div>
+            <a class="btn btn-light" href="mailto:hello@farmconnect.example?subject=FarmConnect%20Farmer%20Interest">I'm interested <span aria-hidden="true">↗</span></a>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer"><div class="container footer-inner"><a class="brand footer-brand" th:href="@{/}"><span class="brand-mark">🌱</span><span>Farm<span class="brand-green">Connect</span></span></a><p>Built for a more connected food system.</p><span>© <span id="year"></span> FarmConnect · Hackathon prototype</span></div></footer>
+
+<div class="modal-backdrop" id="productModal" hidden>
+    <section class="product-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" id="modalClose" aria-label="Close product details">×</button>
+        <img id="modalImage" src="" alt="">
+        <div class="modal-details">
+            <span class="product-category" id="modalCategory">Category</span>
+            <h2 id="modalTitle">Product name</h2>
+            <p class="modal-quality" id="modalQuality"></p>
+            <p id="modalDescription"></p>
+            <div class="modal-price" id="modalPrice"></div>
+            <div class="modal-info"><strong>Farmer:</strong> <span id="modalFarmer"></span></div>
+            <div class="modal-info"><strong>Location:</strong> <span id="modalLocation"></span></div>
+            <div class="modal-info"><strong>Available:</strong> <span id="modalQuantity"></span></div>
+            <div class="modal-actions"><a class="btn btn-green" id="contactFarmer" href="#contact-farmer">Contact farmer ↗</a><a class="btn btn-outline" id="adminPurchase" href="/buyer/register">Order now →</a></div>
+            <p class="modal-hint" id="modalHint">Contact the farmer to confirm availability. Orders require a buyer account.</p>
+            <div class="contact-fallback" id="contactFallback" hidden><strong>Farmer email:</strong> <a id="farmerEmailText" href="#">farmer@example.com</a> <button class="btn btn-outline btn-small" type="button" id="copyFarmerEmail">Copy email</button></div>
+        </div>
+    </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>
